@@ -43,6 +43,30 @@ main {
   padding: 1rem;
 }
 
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.2rem;
+}
+
 a {
   color: #ccc;
   text-decoration: none;
@@ -66,6 +90,8 @@ button {
   border: none;
 
   transition: background-color 0.3s ease-out;
+
+  cursor: pointer;
 }
 
 button:hover {
@@ -75,6 +101,28 @@ button:hover {
 p {
   margin: 1rem auto;
   font-size: 1.5rem;
+  max-width: 60ch;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+input {
+  background-color: #ddd;
+  padding: 1rem;
+  border: none;
+
+  font-size: 1.2rem;
+
+  transition: background-color 0.3s ease-out;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+  background-color: #fff;
 }
 
 @media screen and (max-width: 768px) {
