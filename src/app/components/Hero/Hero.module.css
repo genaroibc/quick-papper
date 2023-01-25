@@ -1,0 +1,14 @@
+.hero {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.hero__title {
+  margin: 3rem auto;
+  font-size: 3.5rem;
+}
+
+.hero__subtitle {
+  margin: 3rem auto;
+  font-size: 3rem;
+}
