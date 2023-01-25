@@ -1,0 +1,13 @@
+.gradientTitle {
+  background: -webkit-linear-gradient(
+    var(--first-color, #f00),
+    var(--second-color, #00f)
+  );
+  background-clip: unset;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradientTitle::selection {
+  -webkit-text-fill-color: var(--complement-color);
+}
