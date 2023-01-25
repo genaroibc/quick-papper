@@ -1,0 +1,16 @@
+.header {
+  background-color: var(--secondary-color);
+  padding: 1rem;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header__nav__link {
+  color: #000;
+}
