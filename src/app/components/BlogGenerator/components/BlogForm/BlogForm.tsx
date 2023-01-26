@@ -1,6 +1,6 @@
 "use client";
 
-import { generate } from "@/services/generate";
+import { APIClient } from "@/services/APIClient";
 import { cohereResponse, generateResponse } from "cohere-ai/dist/models";
 import { useState } from "react";
 import { Generations } from "../Generations/Generations";
@@ -21,7 +21,7 @@ export function BlogForm() {
 
     setGenerations(null);
 
-    const generationResponse = await generate({
+    const generationResponse = await APIClient.generate({
       prompt: blogTitle,
       generationsQuantity
     });

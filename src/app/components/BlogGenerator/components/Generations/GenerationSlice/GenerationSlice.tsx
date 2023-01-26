@@ -1,9 +1,7 @@
-import { extend } from "@/services/extend";
-import { regenerate } from "@/services/regenerate";
-import { summarize } from "@/services/summarize";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import styles from "./GenerationSlice.module.css";
+import { APIClient } from "@/services/APIClient";
 
 type Props = {
   initialContent: string;
@@ -16,7 +14,9 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   const sliceRef = useRef<HTMLParagraphElement>(null);
 
   const handleSummarizeText = async () => {
-    const regeneratedTextData = await summarize({ prompt: textContent });
+    const regeneratedTextData = await APIClient.summarize({
+      prompt: textContent
+    });
 
     setTextContent(
       regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
@@ -24,7 +24,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleRegenerateText = async () => {
-    const regeneratedTextData = await regenerate({
+    const regeneratedTextData = await APIClient.regenerate({
       prompt: textContent
     });
 
@@ -34,7 +34,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleExtendText = async () => {
-    const res = await extend({ prompt: textContent });
+    const res = await APIClient.extend({ prompt: textContent });
 
     setTextContent(prevText => {
       const text = res.body.generations[0].text;
