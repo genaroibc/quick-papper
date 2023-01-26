@@ -19,11 +19,3 @@
   text-transform: capitalize;
   margin: 1.5rem auto;
 }
-
-.generations__item__content {
-  white-space: pre-wrap;
-}
-
-.generations__item__content::first-letter {
-  text-transform: uppercase;
-}
