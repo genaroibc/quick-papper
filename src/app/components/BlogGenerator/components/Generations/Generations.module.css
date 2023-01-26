@@ -1,0 +1,29 @@
+.generations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.generations__item {
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  margin: 1rem auto;
+
+  text-align: left;
+  font-size: 1rem;
+}
+
+.generations__item__title {
+  text-transform: capitalize;
+  margin: 1.5rem auto;
+}
+
+.generations__item__content {
+  white-space: pre-wrap;
+}
+
+.generations__item__content::first-letter {
+  text-transform: uppercase;
+}
