@@ -16,7 +16,7 @@ export async function summarize({ prompt }: Params) {
   const PRESET_PROMPT = `
   Passage: Is Wordle getting tougher to solve? Players seem to be convinced that the game has gotten harder in recent weeks ever since The New York Times bought it from developer Josh Wardle in late January. The Times has come forward and shared that this likely isn't the case. That said, the NYT did mess with the back end code a bit, removing some offensive and sexual language, as well as some obscure words There is a viral thread claiming that a confirmation bias was at play. One Twitter user went so far as to claim the game has gone to "the dusty section of the dictionary" to find its latest words.
 
-  TLDR: Wordle has not gotten more difficult to solve, but there are users that are unnhappy with the purchase of Wordle by Nike.
+  TLDR: Wordle has not gotten more difficult to solve, but there are users that are unnhappy with the purchase of Wordle by The New York Times.
   --
   Passage: ArtificialIvan, a seven-year-old, London-based payment and expense management software company, has raised $190 million in Series C funding led by ARG Global, with participation from D9 Capital Group and Boulder Capital. Earlier backers also joined the round, including Hilton Group, Roxanne Capital, Paved Roads Ventures, Brook Partners, and Plato Capital.
 
