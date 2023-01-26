@@ -1,5 +1,5 @@
 import { extend } from "@/services/extend";
-import { generate } from "@/services/generate";
+import { regenerate } from "@/services/regenerate";
 import { summarize } from "@/services/summarize";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
@@ -12,7 +12,6 @@ type Props = {
 
 export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   const [textContent, setTextContent] = useState<string>(initialContent);
-  console.log(textContent);
 
   const sliceRef = useRef<HTMLParagraphElement>(null);
 
@@ -25,8 +24,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleRegenerateText = async () => {
-    const regeneratedTextData = await generate({
-      generationsQuantity: 1,
+    const regeneratedTextData = await regenerate({
       prompt: textContent
     });
 
@@ -39,7 +37,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     const res = await extend({ prompt: textContent });
 
     setTextContent(prevText => {
-      const text = res.body.generations[0].text.split("\n").pop();
+      const text = res.body.generations[0].text;
 
       return `${prevText}\n${text?.trim().replaceAll("-", "")}`;
     });
@@ -62,7 +60,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       onInput={handleTextChange}
       className={styles.generationSlice}
     >
-      {textContent}
+      {textContent.trim()}
       <span role="toolbar" className={styles.generationSlice__toolbar}>
         <button
           aria-label="summarize paragraph"

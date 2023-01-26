@@ -19,6 +19,8 @@ export function BlogForm() {
       // @ts-ignore
       e.target["blog-generations-amount"].valueAsNumber;
 
+    setGenerations(null);
+
     const generationResponse = await generate({
       prompt: blogTitle,
       generationsQuantity
@@ -38,7 +40,7 @@ export function BlogForm() {
           type="text"
           name="blog-title"
           id="blog-title"
-          placeholder="how to take care of a dog"
+          placeholder="how to make a chocolate cake"
           required
           minLength={20}
           maxLength={90}
