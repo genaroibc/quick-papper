@@ -1,0 +1,24 @@
+.blogForm {
+  max-width: 700px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem;
+}
+
+.blogForm__input {
+  width: 100%;
+}
+
+.blogForm__label {
+  margin: 2rem auto 1rem;
+}
+
+.blogForm__submitBtn {
+  margin: 2rem auto;
+}
