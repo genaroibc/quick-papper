@@ -1,4 +1,4 @@
-import { GENERATION_PROMPT_PREFIX } from "@/services/constants";
+import { GENERATION_PROMPT_PREFIX } from "@/constants";
 import { cohereResponse, generateResponse } from "cohere-ai/dist/models";
 import styles from "./Generations.module.css";
 
