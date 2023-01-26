@@ -1,0 +1,16 @@
+<svg fill="#000000" width="256px" height="256px" viewBox="0 0 24 24" id="chat-alt-3" xmlns="http://www.w3.org/2000/svg"
+  class="icon multi-color" transform="rotate(0)matrix(-1, 0, 0, 1, 0, 0)">
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <g id="SVGRepo_iconCarrier">
+    <title style="stroke-width:1.416;">chat alt 3</title>
+    <path id="secondary-fill"
+      d="M18.81,16.23,20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-4.94,0-8.95-3.54-9-7.92A10.17,10.17,0,0,1,12,6a10.17,10.17,0,0,1,9,5.08A7.49,7.49,0,0,1,18.81,16.23Z"
+      style="fill: #F4CE73; stroke-width:1.416;"></path>
+    <path id="primary-stroke"
+      d="M21,11.08a7.49,7.49,0,0,1-2.19,5.15L20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-4.94,0-8.95-3.54-9-7.92V11c0-4.42,4-8,9-8s9,3.58,9,8Z"
+      style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width:1.416;"></path>
+    <path id="primary-upstroke" d="M16,11Zm-4,0ZM8,11Z"
+      style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width:1.416;"></path>
+  </g>
+</svg>
