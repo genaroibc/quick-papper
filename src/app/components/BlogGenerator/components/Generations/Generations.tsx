@@ -1,11 +1,11 @@
 import { GENERATION_PROMPT_PREFIX } from "@/constants";
-import { cohereResponse, generateResponse } from "cohere-ai/dist/models";
+import { APIResponse } from "@/types";
 import styles from "./Generations.module.css";
 import { GenerationSlice } from "./GenerationSlice/GenerationSlice";
 
 type Props = {
-  generations: cohereResponse<generateResponse>["body"]["generations"];
-  prompt: string;
+  generations: APIResponse["body"]["generations"];
+  prompt?: APIResponse["body"]["prompt"];
 };
 
 export function Generations({ generations, prompt }: Props) {
@@ -14,10 +14,11 @@ export function Generations({ generations, prompt }: Props) {
       {generations.map(({ text }, i) => (
         <article key={i} className={styles.generations__item}>
           <h4 className={styles.generations__item__title}>
-            {prompt
-              .trim()
-              .replace(`${GENERATION_PROMPT_PREFIX}`, "")
-              .replaceAll(".", "")}
+            {prompt &&
+              prompt
+                .trim()
+                .replace(`${GENERATION_PROMPT_PREFIX}`, "")
+                .replaceAll(".", "")}
           </h4>
 
           {text

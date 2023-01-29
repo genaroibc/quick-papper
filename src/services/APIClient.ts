@@ -1,24 +1,17 @@
-import { GENERATION_PROMPT_PREFIX } from "@/constants";
 import cohere from "cohere-ai";
+import { GENERATION_PROMPT_PREFIX } from "@/constants";
+import { APIAction, APIResponse } from "@/types";
+import { initAPI } from "@/services/initAPI";
 
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+initAPI();
 
-if (!API_KEY) {
-  throw new Error("'API_KEY' env variable is not defined");
-}
+type APIClientServiceParams = { prompt: string; generationsQuantity?: number };
 
-cohere.init(API_KEY);
-
-interface CommonParams {
-  prompt: string;
-}
-
-interface GenerateParams extends CommonParams {
-  generationsQuantity: number;
-}
-
-export const APIClient = {
-  async summarize({ prompt }: CommonParams) {
+export const APIClientServices: Record<
+  APIAction,
+  (params: APIClientServiceParams) => Promise<APIResponse>
+> = {
+  SUMMARIZE({ prompt }) {
     const PRESET_PROMPT = `
   Passage: Is Wordle getting tougher to solve? Players seem to be convinced that the game has gotten harder in recent weeks ever since The New York Times bought it from developer Josh Wardle in late January. The Times has come forward and shared that this likely isn't the case. That said, the NYT did mess with the back end code a bit, removing some offensive and sexual language, as well as some obscure words There is a viral thread claiming that a confirmation bias was at play. One Twitter user went so far as to claim the game has gone to "the dusty section of the dictionary" to find its latest words.
 
@@ -40,7 +33,7 @@ export const APIClient = {
 
   TLDR:`;
 
-    const response = await cohere.generate({
+    return cohere.generate({
       prompt: PRESET_PROMPT,
       model: "xlarge",
       max_tokens: 300,
@@ -49,10 +42,8 @@ export const APIClient = {
       presence_penalty: 0.7,
       stop_sequences: ["--"]
     });
-
-    return response;
   },
-  async regenerate({ prompt }: CommonParams) {
+  REGENERATE({ prompt }: APIClientServiceParams) {
     const PRESET_PROMPT = `
   Passage: Is Wordle getting tougher to solve? Players seem to be convinced that the game has gotten harder in recent weeks ever since The New York Times bought it from developer Josh Wardle in late January. The Times has come forward and shared that this likely isn't the case. That said, the NYT did mess with the back end code a bit, removing some offensive and sexual language, as well as some obscure words There is a viral thread claiming that a confirmation bias was at play. One Twitter user went so far as to claim the game has gone to "the dusty section of the dictionary" to find its latest words.
 
@@ -74,7 +65,7 @@ export const APIClient = {
 
   TLDR:`;
 
-    const response = await cohere.generate({
+    return cohere.generate({
       prompt: PRESET_PROMPT,
       model: "xlarge",
       max_tokens: 300,
@@ -83,11 +74,9 @@ export const APIClient = {
       presence_penalty: 0.7,
       stop_sequences: ["--"]
     });
-
-    return response;
   },
-  async generate({ prompt, generationsQuantity }: GenerateParams) {
-    const response = await cohere.generate({
+  GENERATE({ prompt, generationsQuantity }) {
+    return cohere.generate({
       prompt: `${GENERATION_PROMPT_PREFIX}${prompt}`,
       model: "xlarge",
       max_tokens: 450,
@@ -98,11 +87,9 @@ export const APIClient = {
       presence_penalty: 0.7,
       end_sequences: []
     });
-
-    return response;
   },
-  async extend({ prompt }: CommonParams) {
-    const response = await cohere.generate({
+  EXTEND({ prompt }) {
+    return cohere.generate({
       prompt,
       model: "xlarge",
       max_tokens: 140,
@@ -111,7 +98,35 @@ export const APIClient = {
       presence_penalty: 0.7,
       stop_sequences: ["--"]
     });
-
-    return response;
   }
 };
+
+type UseAPIClientParams = {
+  action: APIAction;
+  prompt: string;
+  generationsQuantity?: number;
+};
+
+export async function APIClient({
+  action,
+  prompt,
+  generationsQuantity
+}: UseAPIClientParams): Promise<APIResponse | { ok: false; error: unknown }> {
+  try {
+    const response = await APIClientServices[action]({
+      prompt,
+      generationsQuantity
+    });
+
+    if (response.statusCode !== 200) throw response;
+
+    return response;
+  } catch (error) {
+    console.error(error);
+
+    return {
+      ok: false,
+      error
+    };
+  }
+}

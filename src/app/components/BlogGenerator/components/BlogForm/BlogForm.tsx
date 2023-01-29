@@ -1,32 +1,31 @@
 "use client";
-
 import { APIClient } from "@/services/APIClient";
-import { cohereResponse, generateResponse } from "cohere-ai/dist/models";
 import { useState } from "react";
 import { Generations } from "../Generations/Generations";
+import { APIResponse } from "@/types";
+import { isAPIResponse } from "@/utils/isAPIResponse";
 import styles from "./BlogForm.module.css";
 
 export function BlogForm() {
-  const [generations, setGenerations] =
-    useState<cohereResponse<generateResponse> | null>(null);
+  const [blogData, setBlogData] = useState<APIResponse["body"] | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // @ts-ignore
-    const blogTitle = e.target["blog-title"].value.trim() + ".";
-    const generationsQuantity =
-      // @ts-ignore
-      e.target["blog-generations-amount"].valueAsNumber;
+    setBlogData(null);
+    const form = e.target as HTMLFormElement;
+    const blogTitle = form["blog-title"]?.value.trim() + ".";
+    const generationsQuantity = form["blog-generations-amount"]?.valueAsNumber;
 
-    setGenerations(null);
-
-    const generationResponse = await APIClient.generate({
+    const response = await APIClient({
+      action: "GENERATE",
       prompt: blogTitle,
       generationsQuantity
     });
 
-    setGenerations(generationResponse);
+    if (isAPIResponse(response)) {
+      setBlogData(response.body);
+    }
   };
 
   return (
@@ -67,10 +66,10 @@ export function BlogForm() {
         </button>
       </form>
 
-      {generations ? (
+      {blogData ? (
         <Generations
-          generations={generations.body.generations}
-          prompt={generations.body.prompt}
+          generations={blogData.generations}
+          prompt={blogData.prompt}
         />
       ) : (
         "Enter your blog params"

@@ -1,7 +1,8 @@
+import { APIClient } from "@/services/APIClient";
+import { isAPIResponse } from "@/utils/isAPIResponse";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import styles from "./GenerationSlice.module.css";
-import { APIClient } from "@/services/APIClient";
 
 type Props = {
   initialContent: string;
@@ -14,33 +15,44 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   const sliceRef = useRef<HTMLParagraphElement>(null);
 
   const handleSummarizeText = async () => {
-    const regeneratedTextData = await APIClient.summarize({
+    const regeneratedTextData = await APIClient({
+      action: "SUMMARIZE",
       prompt: textContent
     });
 
-    setTextContent(
-      regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
-    );
+    if (isAPIResponse(regeneratedTextData)) {
+      setTextContent(
+        regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
+      );
+    }
   };
 
   const handleRegenerateText = async () => {
-    const regeneratedTextData = await APIClient.regenerate({
+    const regeneratedTextData = await APIClient({
+      action: "REGENERATE",
       prompt: textContent
     });
 
-    setTextContent(
-      regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
-    );
+    if (isAPIResponse(regeneratedTextData)) {
+      setTextContent(
+        regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
+      );
+    }
   };
 
   const handleExtendText = async () => {
-    const res = await APIClient.extend({ prompt: textContent });
-
-    setTextContent(prevText => {
-      const text = res.body.generations[0].text;
-
-      return `${prevText}\n${text?.trim().replaceAll("-", "")}`;
+    const extendedTextData = await APIClient({
+      action: "EXTEND",
+      prompt: textContent
     });
+
+    if (isAPIResponse(extendedTextData)) {
+      setTextContent(prevText => {
+        const text = extendedTextData.body.generations[0].text;
+
+        return `${prevText}\n${text?.trim().replaceAll("-", "")}`;
+      });
+    }
   };
 
   const handleEditText = () => {
