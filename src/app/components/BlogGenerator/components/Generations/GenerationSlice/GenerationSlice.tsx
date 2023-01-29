@@ -1,3 +1,4 @@
+import { Loader } from "@/app/components/Loader/Loader";
 import { APIClient } from "@/services/APIClient";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import Image from "next/image";
@@ -11,10 +12,12 @@ type Props = {
 
 export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   const [textContent, setTextContent] = useState<string>(initialContent);
+  const [loading, setLoading] = useState(false);
 
   const sliceRef = useRef<HTMLParagraphElement>(null);
 
   const handleSummarizeText = async () => {
+    setLoading(true);
     const regeneratedTextData = await APIClient({
       action: "SUMMARIZE",
       prompt: textContent
@@ -25,9 +28,11 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
       );
     }
+    setLoading(false);
   };
 
   const handleRegenerateText = async () => {
+    setLoading(true);
     const regeneratedTextData = await APIClient({
       action: "REGENERATE",
       prompt: textContent
@@ -38,9 +43,11 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
       );
     }
+    setLoading(false);
   };
 
   const handleExtendText = async () => {
+    setLoading(true);
     const extendedTextData = await APIClient({
       action: "EXTEND",
       prompt: textContent
@@ -53,6 +60,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         return `${prevText}\n${text?.trim().replaceAll("-", "")}`;
       });
     }
+    setLoading(false);
   };
 
   const handleEditText = () => {
@@ -67,12 +75,19 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   return (
-    <p
-      ref={sliceRef}
-      onInput={handleTextChange}
-      className={styles.generationSlice}
-    >
-      {textContent.trim()}
+    <div onInput={handleTextChange} className={styles.generationSlice}>
+      {loading ? (
+        <>
+          <div className={styles.generationSlice__loaderContainer}>
+            <Loader />
+          </div>
+          <p className={styles.generationSlice__loadingPgph} ref={sliceRef}>
+            {textContent.trim()}
+          </p>
+        </>
+      ) : (
+        <p ref={sliceRef}>{textContent.trim()}</p>
+      )}
       <span role="toolbar" className={styles.generationSlice__toolbar}>
         <button
           aria-label="summarize paragraph"
@@ -144,6 +159,6 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
           />
         </button>
       </span>
-    </p>
+    </div>
   );
 }

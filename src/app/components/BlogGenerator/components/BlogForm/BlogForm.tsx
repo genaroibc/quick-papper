@@ -5,9 +5,11 @@ import { Generations } from "../Generations/Generations";
 import { APIResponse } from "@/types";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import styles from "./BlogForm.module.css";
+import { Loader } from "@/app/components/Loader/Loader";
 
 export function BlogForm() {
   const [blogData, setBlogData] = useState<APIResponse["body"] | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,6 +18,8 @@ export function BlogForm() {
     const form = e.target as HTMLFormElement;
     const blogTitle = form["blog-title"]?.value.trim() + ".";
     const generationsQuantity = form["blog-generations-amount"]?.valueAsNumber;
+
+    setLoading(true);
 
     const response = await APIClient({
       action: "GENERATE",
@@ -26,6 +30,8 @@ export function BlogForm() {
     if (isAPIResponse(response)) {
       setBlogData(response.body);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -66,13 +72,15 @@ export function BlogForm() {
         </button>
       </form>
 
-      {blogData ? (
+      {loading ? (
+        <Loader />
+      ) : blogData ? (
         <Generations
           generations={blogData.generations}
           prompt={blogData.prompt}
         />
       ) : (
-        "Enter your blog params"
+        <p>Enter your blog params</p>
       )}
     </>
   );
