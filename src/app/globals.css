@@ -26,6 +26,26 @@ body {
   margin: 0;
 }
 
+*::-webkit-scrollbar,
+*::-webkit-scrollbar:horizontal {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--complement-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--complement-color);
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--complement-color) transparent;
+}
+
 html {
   max-width: 1200px;
   margin: auto;
@@ -94,7 +114,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
   background-color: var(--terciary-color);
 }
 
