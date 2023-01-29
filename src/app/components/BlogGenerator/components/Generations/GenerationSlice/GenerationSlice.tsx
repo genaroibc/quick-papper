@@ -10,8 +10,17 @@ type Props = {
   handleDeleteSlice: () => void;
 };
 
+type TextContentState = {
+  currentText: string;
+  newText: string | null;
+};
+
 export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
-  const [textContent, setTextContent] = useState<string>(initialContent);
+  const [textContent, setTextContent] = useState<TextContentState>({
+    currentText: initialContent,
+    newText: null
+  });
+
   const [loading, setLoading] = useState(false);
 
   const sliceRef = useRef<HTMLParagraphElement>(null);
@@ -20,13 +29,18 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     setLoading(true);
     const regeneratedTextData = await APIClient({
       action: "SUMMARIZE",
-      prompt: textContent
+      prompt: textContent.currentText
     });
 
     if (isAPIResponse(regeneratedTextData)) {
-      setTextContent(
-        regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
-      );
+      setTextContent(({ currentText }) => {
+        return {
+          currentText,
+          newText: regeneratedTextData.body.generations[0].text
+            .trim()
+            .replaceAll("-", "")
+        };
+      });
     }
     setLoading(false);
   };
@@ -35,13 +49,18 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     setLoading(true);
     const regeneratedTextData = await APIClient({
       action: "REGENERATE",
-      prompt: textContent
+      prompt: textContent.currentText
     });
 
     if (isAPIResponse(regeneratedTextData)) {
-      setTextContent(
-        regeneratedTextData.body.generations[0].text.trim().replaceAll("-", "")
-      );
+      setTextContent(({ currentText }) => {
+        return {
+          currentText,
+          newText: regeneratedTextData.body.generations[0].text
+            .trim()
+            .replaceAll("-", "")
+        };
+      });
     }
     setLoading(false);
   };
@@ -50,14 +69,17 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     setLoading(true);
     const extendedTextData = await APIClient({
       action: "EXTEND",
-      prompt: textContent
+      prompt: textContent.currentText
     });
 
     if (isAPIResponse(extendedTextData)) {
-      setTextContent(prevText => {
+      setTextContent(({ currentText }) => {
         const text = extendedTextData.body.generations[0].text;
 
-        return `${prevText}\n${text?.trim().replaceAll("-", "")}`;
+        return {
+          currentText,
+          newText: `${currentText}\n${text?.trim().replaceAll("-", "")}`
+        };
       });
     }
     setLoading(false);
@@ -71,9 +93,31 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleTextChange = async (e: ChangeEvent<HTMLParagraphElement>) => {
-    if (e.target.textContent) setTextContent(e.target.textContent);
+    if (e.target.textContent) {
+      setTextContent(({ newText }) => {
+        return {
+          currentText: e.target.textContent!,
+          newText
+        };
+      });
+    }
   };
 
+  const handleAcceptNewText = () => {
+    setTextContent(currentState => {
+      if (currentState.newText) {
+        return { currentText: currentState.newText, newText: null };
+      }
+
+      return currentState;
+    });
+  };
+
+  const handleDiscardNewText = () => {
+    setTextContent(currentState => {
+      return { ...currentState, newText: null };
+    });
+  };
   return (
     <div onInput={handleTextChange} className={styles.generationSlice}>
       {loading ? (
@@ -82,14 +126,54 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
             <Loader />
           </div>
           <p className={styles.generationSlice__loadingPgph} ref={sliceRef}>
-            {textContent.trim()}
+            {textContent.currentText.trim()}
           </p>
         </>
       ) : (
-        <p ref={sliceRef}>{textContent.trim()}</p>
+        <>
+          <p className={styles.generationSlice__pgph} ref={sliceRef}>
+            {textContent.currentText.trim()}
+          </p>
+          {textContent.newText && (
+            <div className={styles.generationSlice__newPgphContainer}>
+              <p>{textContent.newText}</p>
+              <nav className={styles.generationSlice__newPgphContainer__navbar}>
+                <button
+                  className={
+                    styles.generationSlice__newPgphContainer__navbar__acceptChangesBtn
+                  }
+                  onClick={handleAcceptNewText}
+                >
+                  Accept changes
+                  <Image
+                    src="/svg/accept.svg"
+                    alt="accept changes"
+                    width={30}
+                    height={30}
+                  />
+                </button>
+                <button
+                  className={
+                    styles.generationSlice__newPgphContainer__navbar__discardChangesBtn
+                  }
+                  onClick={handleDiscardNewText}
+                >
+                  Discard changes
+                  <Image
+                    src="/svg/trash.svg"
+                    alt="discard changes"
+                    width={30}
+                    height={30}
+                  />
+                </button>
+              </nav>
+            </div>
+          )}
+        </>
       )}
       <span role="toolbar" className={styles.generationSlice__toolbar}>
         <button
+          disabled={loading || Boolean(textContent.newText)}
           aria-label="summarize paragraph"
           onClick={handleSummarizeText}
           className={styles.generationSlice__toolbar__btn}
@@ -104,6 +188,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         </button>
 
         <button
+          disabled={loading || Boolean(textContent.newText)}
           aria-label="regenerate paragraph"
           onClick={handleRegenerateText}
           className={styles.generationSlice__toolbar__btn}
@@ -118,6 +203,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         </button>
 
         <button
+          disabled={loading || Boolean(textContent.newText)}
           aria-label="extend paragraph"
           onClick={handleExtendText}
           className={styles.generationSlice__toolbar__btn}
@@ -132,6 +218,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         </button>
 
         <button
+          disabled={loading || Boolean(textContent.newText)}
           aria-label="delete paragraph"
           onClick={handleDeleteSlice}
           className={styles.generationSlice__toolbar__btn}
@@ -146,6 +233,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         </button>
 
         <button
+          disabled={loading || Boolean(textContent.newText)}
           aria-label="edit paragraph"
           onClick={handleEditText}
           className={styles.generationSlice__toolbar__btn}

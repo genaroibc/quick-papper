@@ -46,7 +46,7 @@
   display: flex;
 }
 
-.generationSlice:last-of-type::after {
+.generationSlice:last-of-type p:last-of-type:after {
   content: "...";
 }
 
@@ -58,7 +58,11 @@
   transition: scale 0.3s ease-out;
 }
 
-.generationSlice__toolbar__btn:hover {
+.generationSlice__toolbar__btn:disabled {
+  opacity: 0.7;
+}
+
+.generationSlice__toolbar__btn:not(:disabled):hover {
   scale: 1.2;
 }
 
@@ -103,8 +107,8 @@
   border-radius: 5px;
 }
 
-.generationSlice__toolbar__btn:hover::after,
-.generationSlice__toolbar__btn:hover::before {
+.generationSlice__toolbar__btn:not(:disabled):hover::after,
+.generationSlice__toolbar__btn:not(:disabled):hover::before {
   opacity: 1;
 }
 
@@ -113,4 +117,49 @@
   align-items: center;
   justify-content: center;
   margin: 0.3rem auto;
+}
+
+.generationSlice__pgph {
+  transition: color 0.3s ease-out;
+}
+
+.generationSlice__newPgphContainer {
+  transition: color 0.3s ease-out;
+  color: #00ff00;
+}
+
+.generationSlice__newPgphContainer__navbar {
+  margin: 2rem auto 1rem;
+  display: flex;
+  align-content: center;
+  gap: 1rem;
+}
+
+.generationSlice__newPgphContainer__navbar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.6rem;
+}
+
+.generationSlice:has(
+    .generationSlice__newPgphContainer__navbar__discardChangesBtn:hover
+  )
+  .generationSlice__newPgphContainer {
+  color: #222;
+}
+
+.generationSlice:has(
+    .generationSlice__newPgphContainer__navbar__acceptChangesBtn:hover
+  )
+  .generationSlice__pgph {
+  color: #222;
+}
+
+.generationSlice:has(
+    .generationSlice__newPgphContainer__navbar__acceptChangesBtn:hover
+  )
+  .generationSlice__newPgphContainer {
+  color: inherit;
 }
