@@ -26,8 +26,6 @@ export function Hero() {
         Generate the AI-powered draft that you need to get inspired and take
         your productivity to the moon 🚀
       </p>
-
-      <button>Try it now</button>
     </section>
   );
 }
