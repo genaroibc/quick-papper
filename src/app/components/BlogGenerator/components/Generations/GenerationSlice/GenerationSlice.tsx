@@ -3,6 +3,7 @@ import { APIClient } from "@/services/APIClient";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
+import { GenerationLoader } from "./GenerationLoader/GenerationLoader";
 import styles from "./GenerationSlice.module.css";
 
 type Props = {
@@ -122,9 +123,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     <div onInput={handleTextChange} className={styles.generationSlice}>
       {loading ? (
         <>
-          <div className={styles.generationSlice__loaderContainer}>
-            <Loader />
-          </div>
+          <GenerationLoader />
           <p className={styles.generationSlice__loadingPgph} ref={sliceRef}>
             {textContent.currentText.trim()}
           </p>

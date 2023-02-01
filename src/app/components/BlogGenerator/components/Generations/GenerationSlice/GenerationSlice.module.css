@@ -112,13 +112,6 @@
   opacity: 1;
 }
 
-.generationSlice__loaderContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0.3rem auto;
-}
-
 .generationSlice__pgph {
   transition: color 0.3s ease-out;
 }

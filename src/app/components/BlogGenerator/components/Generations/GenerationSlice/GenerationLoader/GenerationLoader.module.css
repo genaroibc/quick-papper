@@ -1,0 +1,23 @@
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 100%;
+
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 5px;
+
+  transition: background 0.3s ease;
+}
+
+.loaderContainer__message {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.loaderContainer__message::after {
+  content: "...";
+}
