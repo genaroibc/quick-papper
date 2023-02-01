@@ -1,7 +1,7 @@
 "use client";
 import { APIClient } from "@/services/APIClient";
 import { useState } from "react";
-import { Generations } from "../Generations/Generations";
+import { Generation } from "../Generations/Generations";
 import { APIResponse } from "@/types";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import styles from "./BlogForm.module.css";
@@ -78,10 +78,13 @@ export function BlogForm() {
           <p>Wait while we generate your blog draft...</p>
         </>
       ) : blogData ? (
-        <Generations
-          generations={blogData.generations}
-          prompt={blogData.prompt}
-        />
+        blogData.generations.map(generation => (
+          <Generation
+            key={generation.text.slice(0, 10)}
+            initialSlices={generation.text.trim().split("\n\n")}
+            prompt={blogData.prompt}
+          />
+        ))
       ) : (
         <p>Enter your blog params</p>
       )}
