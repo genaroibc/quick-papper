@@ -102,8 +102,6 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
 
   const handleTextChange = async (e: ChangeEvent<HTMLParagraphElement>) => {
     if (e.target.textContent) {
-      console.log(e.target.textContent);
-
       setTextToEdit(e.target.textContent);
     }
   };
@@ -121,6 +119,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       return currentState;
     });
 
+    setTextToEdit("");
     const editPgph = sliceRef.current;
 
     if (editPgph) {
@@ -128,8 +127,6 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       editPgph.contentEditable = "false";
     }
   };
-
-  console.log(textContent);
 
   const handleDiscardNewText = () => {
     if (sliceRef.current?.textContent) {
@@ -139,6 +136,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       return { ...currentState, newText: null };
     });
   };
+
   return (
     <div onInput={handleTextChange} className={styles.generationSlice}>
       {loading ? (
