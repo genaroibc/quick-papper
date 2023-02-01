@@ -4,13 +4,14 @@ import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import { GenerationLoader } from "./GenerationLoader/GenerationLoader";
 import styles from "./GenerationSlice.module.css";
+import { GenerationSliceToolbar } from "./GenerationSliceToolbar/GenerationSliceToolbar";
 
 type Props = {
   initialContent: string;
   handleDeleteSlice: () => void;
 };
 
-type TextContentState = {
+export type TextContentState = {
   currentText: string;
   newText: string | null;
 };
@@ -193,82 +194,16 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
           </div>
         </>
       )}
-      <span role="toolbar" className={styles.generationSlice__toolbar}>
-        <button
-          disabled={loading || Boolean(textContent.newText)}
-          aria-label="summarize paragraph"
-          onClick={handleSummarizeText}
-          className={styles.generationSlice__toolbar__btn}
-        >
-          <Image
-            src="/svg/summarize.svg"
-            alt="summarize paragraph"
-            title="summarize paragraph"
-            width={40}
-            height={40}
-          />
-        </button>
 
-        <button
-          disabled={loading || Boolean(textContent.newText)}
-          aria-label="regenerate paragraph"
-          onClick={handleRegenerateText}
-          className={styles.generationSlice__toolbar__btn}
-        >
-          <Image
-            src="/svg/regenerate.svg"
-            alt="regenerate paragraph"
-            title="regenerate paragraph"
-            width={40}
-            height={40}
-          />
-        </button>
-
-        <button
-          disabled={loading || Boolean(textContent.newText)}
-          aria-label="extend paragraph"
-          onClick={handleExtendText}
-          className={styles.generationSlice__toolbar__btn}
-        >
-          <Image
-            src="/svg/extend.svg"
-            alt="extend paragraph"
-            title="extend paragraph"
-            width={40}
-            height={40}
-          />
-        </button>
-
-        <button
-          disabled={loading || Boolean(textContent.newText)}
-          aria-label="delete paragraph"
-          onClick={handleDeleteSlice}
-          className={styles.generationSlice__toolbar__btn}
-        >
-          <Image
-            src="/svg/delete.svg"
-            alt="delete paragraph"
-            title="delete paragraph"
-            width={40}
-            height={40}
-          />
-        </button>
-
-        <button
-          disabled={loading || Boolean(textContent.newText)}
-          aria-label="edit paragraph"
-          onClick={handleEditText}
-          className={styles.generationSlice__toolbar__btn}
-        >
-          <Image
-            src="/svg/edit.svg"
-            alt="edit paragraph"
-            title="edit paragraph"
-            width={40}
-            height={40}
-          />
-        </button>
-      </span>
+      <GenerationSliceToolbar
+        handleDeleteSlice={handleDeleteSlice}
+        handleEditText={handleEditText}
+        handleExtendText={handleExtendText}
+        handleRegenerateText={handleRegenerateText}
+        handleSummarizeText={handleSummarizeText}
+        loading={loading}
+        textContent={textContent}
+      />
     </div>
   );
 }

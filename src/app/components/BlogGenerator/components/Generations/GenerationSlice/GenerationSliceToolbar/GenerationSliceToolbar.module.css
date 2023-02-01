@@ -1,0 +1,82 @@
+.toolbar {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  width: auto;
+  max-width: 100%;
+
+  padding: 0.5rem;
+
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+
+  background-color: var(--terciary-color);
+  border-radius: 5px 5px 0 0;
+  transform: translateX(-50%);
+}
+
+.toolbar__btn {
+  padding: 0.2rem;
+
+  position: relative;
+
+  transition: scale 0.3s ease-out;
+}
+
+.toolbar__btn:disabled {
+  opacity: 0.7;
+}
+
+.toolbar__btn:not(:disabled):hover {
+  scale: 1.2;
+}
+
+.toolbar__btn::before,
+.toolbar__btn::after {
+  position: absolute;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+
+  background-color: #000;
+  opacity: 0;
+
+  transition: opacity 0.3s ease-out;
+}
+
+.toolbar__btn::before {
+  content: "";
+  width: 2rem;
+  height: 2rem;
+
+  position: absolute;
+  bottom: 105%;
+
+  opacity: 0;
+  clip-path: polygon(0% 50%, 100% 50%, 50% 100%);
+}
+
+.toolbar__btn::after {
+  content: attr(aria-label);
+
+  bottom: 115%;
+
+  padding: 0.5em 1em;
+
+  font-size: 0.9rem;
+  text-indent: 0;
+  white-space: nowrap;
+
+  border-radius: 5px;
+}
+
+.toolbar__btn:not(:disabled):hover::after,
+.toolbar__btn:not(:disabled):hover::before {
+  opacity: 1;
+}
