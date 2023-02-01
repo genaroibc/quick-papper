@@ -29,16 +29,16 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
 
   const handleSummarizeText = async () => {
     setLoading(true);
-    const regeneratedTextData = await APIClient({
+    const summarizedTextData = await APIClient({
       action: "SUMMARIZE",
       prompt: textContent.currentText
     });
 
-    if (isAPIResponse(regeneratedTextData)) {
+    if (isAPIResponse(summarizedTextData)) {
       setTextContent(({ currentText }) => {
         return {
           currentText,
-          newText: regeneratedTextData.body.generations[0].text
+          newText: summarizedTextData.body.generations[0].text
             .trim()
             .replaceAll("-", "")
         };
@@ -76,11 +76,11 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
 
     if (isAPIResponse(extendedTextData)) {
       setTextContent(({ currentText }) => {
-        const text = extendedTextData.body.generations[0].text;
+        const extendedText = extendedTextData.body.generations[0].text;
 
         return {
           currentText,
-          newText: `${currentText}\n${text?.trim().replaceAll("-", "")}`
+          newText: `${currentText}\n${extendedText?.trim().replaceAll("-", "")}`
         };
       });
     }
@@ -88,11 +88,12 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleEditText = () => {
-    if (sliceRef.current) {
-      sliceRef.current.contentEditable = "true";
-      sliceRef.current.focus();
+    const $slice = sliceRef.current;
+    if ($slice) {
+      $slice.contentEditable = "true";
+      $slice.focus();
 
-      sliceRef.current.textContent = textContent.currentText;
+      $slice.textContent = textContent.currentText;
 
       setTextContent(currentState => {
         return { ...currentState, newText: currentState.currentText };
@@ -120,18 +121,21 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     });
 
     setTextToEdit("");
-    const editPgph = sliceRef.current;
+    const $editPgph = sliceRef.current;
 
-    if (editPgph) {
-      editPgph.textContent = "";
-      editPgph.contentEditable = "false";
+    if ($editPgph) {
+      $editPgph.textContent = "";
+      $editPgph.contentEditable = "false";
     }
   };
 
   const handleDiscardNewText = () => {
-    if (sliceRef.current?.textContent) {
-      sliceRef.current.textContent = "";
+    const $slice = sliceRef.current;
+
+    if ($slice?.textContent) {
+      $slice.textContent = "";
     }
+
     setTextContent(currentState => {
       return { ...currentState, newText: null };
     });
