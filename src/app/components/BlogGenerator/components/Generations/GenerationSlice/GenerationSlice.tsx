@@ -1,4 +1,3 @@
-import { Loader } from "@/app/components/Loader/Loader";
 import { APIClient } from "@/services/APIClient";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import Image from "next/image";
@@ -21,6 +20,8 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     currentText: initialContent,
     newText: null
   });
+
+  const [textToEdit, setTextToEdit] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -90,31 +91,50 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     if (sliceRef.current) {
       sliceRef.current.contentEditable = "true";
       sliceRef.current.focus();
+
+      sliceRef.current.textContent = textContent.currentText;
+
+      setTextContent(currentState => {
+        return { ...currentState, newText: currentState.currentText };
+      });
     }
   };
 
   const handleTextChange = async (e: ChangeEvent<HTMLParagraphElement>) => {
     if (e.target.textContent) {
-      setTextContent(({ newText }) => {
-        return {
-          currentText: e.target.textContent!,
-          newText
-        };
-      });
+      console.log(e.target.textContent);
+
+      setTextToEdit(e.target.textContent);
     }
   };
 
   const handleAcceptNewText = () => {
     setTextContent(currentState => {
+      if (textToEdit) {
+        return { newText: null, currentText: textToEdit };
+      }
+
       if (currentState.newText) {
         return { currentText: currentState.newText, newText: null };
       }
 
       return currentState;
     });
+
+    const editPgph = sliceRef.current;
+
+    if (editPgph) {
+      editPgph.textContent = "";
+      editPgph.contentEditable = "false";
+    }
   };
 
+  console.log(textContent);
+
   const handleDiscardNewText = () => {
+    if (sliceRef.current?.textContent) {
+      sliceRef.current.textContent = "";
+    }
     setTextContent(currentState => {
       return { ...currentState, newText: null };
     });
@@ -130,12 +150,13 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         </>
       ) : (
         <>
-          <p className={styles.generationSlice__pgph} ref={sliceRef}>
+          <p className={styles.generationSlice__pgph}>
             {textContent.currentText.trim()}
           </p>
-          {textContent.newText && (
-            <div className={styles.generationSlice__newPgphContainer}>
-              <p>{textContent.newText}</p>
+          <div className={styles.generationSlice__newPgphContainer}>
+            <p ref={sliceRef}>{textContent.newText}</p>
+
+            {textContent.newText && (
               <nav className={styles.generationSlice__newPgphContainer__navbar}>
                 <button
                   className={
@@ -166,8 +187,8 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
                   />
                 </button>
               </nav>
-            </div>
-          )}
+            )}
+          </div>
         </>
       )}
       <span role="toolbar" className={styles.generationSlice__toolbar}>
