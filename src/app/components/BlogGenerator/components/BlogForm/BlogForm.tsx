@@ -73,7 +73,10 @@ export function BlogForm() {
       </form>
 
       {loading ? (
-        <Loader />
+        <>
+          <Loader />
+          <p>Wait while we generate your blog draft...</p>
+        </>
       ) : blogData ? (
         <Generations
           generations={blogData.generations}
