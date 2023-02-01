@@ -155,14 +155,14 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
           <p className={styles.generationSlice__pgph}>
             {textContent.currentText.trim()}
           </p>
-          <div className={styles.generationSlice__newPgphContainer}>
+          <div className={styles.generationSlice__newPgphCont}>
             <p ref={sliceRef}>{textContent.newText}</p>
 
             {textContent.newText && (
-              <nav className={styles.generationSlice__newPgphContainer__navbar}>
+              <nav className={styles.generationSlice__newPgphCont__navbar}>
                 <button
                   className={
-                    styles.generationSlice__newPgphContainer__navbar__acceptChangesBtn
+                    styles.generationSlice__newPgphCont__navbar__acceptChangesBtn
                   }
                   onClick={handleAcceptNewText}
                 >
@@ -176,7 +176,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
                 </button>
                 <button
                   className={
-                    styles.generationSlice__newPgphContainer__navbar__discardChangesBtn
+                    styles.generationSlice__newPgphCont__navbar__discardChangesBtn
                   }
                   onClick={handleDiscardNewText}
                 >
