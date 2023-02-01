@@ -5,6 +5,8 @@ import styles from "./GenerationLoader.module.css";
 const MESSAGE_CHANGE_INTERVAL = 3800;
 const LOADING_MESSAGES = [
   "parsing prompt",
+  "extracting tokens",
+  "detecting tone",
   "configuring parameters",
   "recovering context",
   "fetching resources",
