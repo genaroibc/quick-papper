@@ -31,21 +31,23 @@ export function Generation({ initialSlices, prompt }: Props) {
   };
 
   const handleExtendGeneration = async () => {
-    const prompt = slices.map(slice => slice.content).join("\n\n");
+    const lastParagraph =
+      slices.at(-1)?.content ?? `${GENERATION_PROMPT_PREFIX}${prompt}.`;
 
     setLoading(true);
 
     const newSlicesResponse = await APIClient({
       action: "GENERATE",
-      prompt
+      prompt: lastParagraph
     });
 
     if (isAPIResponse(newSlicesResponse)) {
-      const paragraphs =
-        newSlicesResponse.body.generations[0].text.split("\n\n");
+      const paragraphs = newSlicesResponse.body.generations[0].text
+        .trim()
+        .split("\n\n");
 
       const newSlices = paragraphs.map(pgph => ({
-        content: pgph,
+        content: pgph.trim(),
         id: nanoid()
       }));
 
