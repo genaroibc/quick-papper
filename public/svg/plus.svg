@@ -1,0 +1,9 @@
+<svg fill="#fff " width="256px" height="256px" viewBox="0 0 24.00 24.00" id="plus" xmlns="http://www.w3.org/2000/svg"
+  class="icon multi-color">
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <g id="SVGRepo_iconCarrier">
+    <path id="primary-stroke" d="M5,12H19M12,5V19"
+      style="fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width:2.4;"></path>
+  </g>
+</svg>
