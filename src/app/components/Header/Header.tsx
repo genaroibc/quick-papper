@@ -5,11 +5,19 @@ export function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.header__nav}>
-        <Link href="/">Home</Link>
-        <Link href="/">Showcase</Link>
-        <Link href="/">Solutions</Link>
-        <Link href="/">Try it</Link>
-        <Link href="/">About</Link>
+        <Link className={styles.header__nav__link} href="/">
+          Home
+        </Link>
+        <Link className={styles.header__nav__link} href="/">
+          Showcase
+        </Link>
+        <Link
+          className={styles.header__nav__link}
+          href="https://github.com/genaroibc"
+          target="_blank"
+        >
+          GitHub
+        </Link>
       </nav>
     </header>
   );

@@ -1,6 +1,13 @@
 .header {
   background-color: var(--secondary-color);
-  padding: 1rem;
+  padding: 1.6rem;
+
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  border-radius: 0 0 50% 50%;
 }
 
 .header__nav {
@@ -12,5 +19,5 @@
 }
 
 .header__nav__link {
-  color: #000;
+  font-size: 1.3rem;
 }
