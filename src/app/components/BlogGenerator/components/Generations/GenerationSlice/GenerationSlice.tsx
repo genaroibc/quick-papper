@@ -17,7 +17,7 @@ export type TextContentState = {
 };
 
 export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
-  const [textContent, setTextContent] = useState<TextContentState>({
+  const [sliceContent, setSliceContent] = useState<TextContentState>({
     currentText: initialContent,
     newText: null
   });
@@ -32,11 +32,11 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     setLoading(true);
     const summarizedTextData = await APIClient({
       action: "SUMMARIZE",
-      prompt: textContent.currentText
+      prompt: sliceContent.currentText
     });
 
     if (isAPIResponse(summarizedTextData)) {
-      setTextContent(({ currentText }) => {
+      setSliceContent(({ currentText }) => {
         return {
           currentText,
           newText: summarizedTextData.body.generations[0].text
@@ -52,11 +52,11 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     setLoading(true);
     const regeneratedTextData = await APIClient({
       action: "REGENERATE",
-      prompt: textContent.currentText
+      prompt: sliceContent.currentText
     });
 
     if (isAPIResponse(regeneratedTextData)) {
-      setTextContent(({ currentText }) => {
+      setSliceContent(({ currentText }) => {
         return {
           currentText,
           newText: regeneratedTextData.body.generations[0].text
@@ -72,11 +72,11 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
     setLoading(true);
     const extendedTextData = await APIClient({
       action: "EXTEND",
-      prompt: textContent.currentText
+      prompt: sliceContent.currentText
     });
 
     if (isAPIResponse(extendedTextData)) {
-      setTextContent(({ currentText }) => {
+      setSliceContent(({ currentText }) => {
         const extendedText = extendedTextData.body.generations[0].text;
 
         return {
@@ -94,9 +94,9 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       $slice.contentEditable = "true";
       $slice.focus();
 
-      $slice.textContent = textContent.currentText;
+      $slice.textContent = sliceContent.currentText;
 
-      setTextContent(currentState => {
+      setSliceContent(currentState => {
         return { ...currentState, newText: currentState.currentText };
       });
     }
@@ -109,7 +109,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleAcceptNewText = () => {
-    setTextContent(currentState => {
+    setSliceContent(currentState => {
       if (textToEdit) {
         return { newText: null, currentText: textToEdit };
       }
@@ -137,7 +137,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       $slice.textContent = "";
     }
 
-    setTextContent(currentState => {
+    setSliceContent(currentState => {
       return { ...currentState, newText: null };
     });
   };
@@ -148,18 +148,18 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         <>
           <GenerationLoader />
           <p className={styles.generationSlice__loadingPgph} ref={sliceRef}>
-            {textContent.currentText.trim()}
+            {sliceContent.currentText.trim()}
           </p>
         </>
       ) : (
         <>
           <p className={styles.generationSlice__pgph}>
-            {textContent.currentText.trim()}
+            {sliceContent.currentText.trim()}
           </p>
           <div className={styles.generationSlice__newPgphCont}>
-            <p ref={sliceRef}>{textContent.newText}</p>
+            <p ref={sliceRef}>{sliceContent.newText}</p>
 
-            {textContent.newText && (
+            {sliceContent.newText && (
               <nav className={styles.generationSlice__newPgphCont__navbar}>
                 <button
                   className={
@@ -202,7 +202,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
         handleRegenerateText={handleRegenerateText}
         handleSummarizeText={handleSummarizeText}
         loading={loading}
-        textContent={textContent}
+        textContent={sliceContent}
       />
     </div>
   );
