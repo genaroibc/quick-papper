@@ -29,19 +29,19 @@
   transition: color 0.3s ease-out;
 }
 
-.generationSlice__newPgphContainer {
+.generationSlice__newPgphCont {
   transition: color 0.3s ease-out;
   color: #00ff00;
 }
 
-.generationSlice__newPgphContainer__navbar {
+.generationSlice__newPgphCont__navbar {
   margin: 2rem auto 1rem;
   display: flex;
   align-content: center;
   gap: 1rem;
 }
 
-.generationSlice__newPgphContainer__navbar button {
+.generationSlice__newPgphCont__navbar button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,22 +50,22 @@
 }
 
 .generationSlice:has(
-    .generationSlice__newPgphContainer__navbar__discardChangesBtn:hover
+    .generationSlice__newPgphCont__navbar__discardChangesBtn:hover
   )
-  .generationSlice__newPgphContainer {
+  .generationSlice__newPgphCont {
   color: #222;
 }
 
 .generationSlice:has(
-    .generationSlice__newPgphContainer__navbar__acceptChangesBtn:hover
+    .generationSlice__newPgphCont__navbar__acceptChangesBtn:hover
   )
   .generationSlice__pgph {
   color: #222;
 }
 
 .generationSlice:has(
-    .generationSlice__newPgphContainer__navbar__acceptChangesBtn:hover
+    .generationSlice__newPgphCont__navbar__acceptChangesBtn:hover
   )
-  .generationSlice__newPgphContainer {
+  .generationSlice__newPgphCont {
   color: inherit;
 }
