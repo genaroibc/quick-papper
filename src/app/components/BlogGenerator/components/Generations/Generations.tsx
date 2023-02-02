@@ -1,8 +1,12 @@
 import { GENERATION_PROMPT_PREFIX } from "@/constants";
+import { APIClient } from "@/services/APIClient";
 import { APIResponse } from "@/types";
+import { isAPIResponse } from "@/utils/isAPIResponse";
 import { nanoid } from "nanoid";
+import Image from "next/image";
 import { useState } from "react";
 import styles from "./Generations.module.css";
+import { GenerationLoader } from "./GenerationSlice/GenerationLoader/GenerationLoader";
 import { GenerationSlice } from "./GenerationSlice/GenerationSlice";
 
 type Props = {
@@ -13,6 +17,8 @@ type Props = {
 type GenerationSlice = { id: string; content: string };
 
 export function Generation({ initialSlices, prompt }: Props) {
+  const [loading, setLoading] = useState(false);
+
   const [slices, setSlices] = useState<GenerationSlice[]>(() => {
     return initialSlices.map(slice => ({ content: slice, id: nanoid() }));
   });
@@ -24,6 +30,29 @@ export function Generation({ initialSlices, prompt }: Props) {
     });
   };
 
+  const handleExtendGeneration = async () => {
+    const prompt = slices.map(slice => slice.content).join("\n\n");
+
+    setLoading(true);
+
+    const newSlicesResponse = await APIClient({
+      action: "GENERATE",
+      prompt
+    });
+
+    if (isAPIResponse(newSlicesResponse)) {
+      const paragraphs =
+        newSlicesResponse.body.generations[0].text.split("\n\n");
+
+      const newSlices = paragraphs.map(pgph => ({
+        content: pgph,
+        id: nanoid()
+      }));
+
+      setSlices(currentSlices => [...currentSlices, ...newSlices]);
+    }
+    setLoading(false);
+  };
   return (
     <div className={styles.generations}>
       <article className={styles.generations__item}>
@@ -42,6 +71,21 @@ export function Generation({ initialSlices, prompt }: Props) {
             initialContent={content.trim()}
           />
         ))}
+
+        {loading && <GenerationLoader />}
+
+        <button
+          onClick={handleExtendGeneration}
+          className={styles.generations__item__extendBtn}
+        >
+          Extend
+          <Image
+            src="/svg/plus.svg"
+            alt="add new paragraphs"
+            width={40}
+            height={40}
+          />
+        </button>
       </article>
     </div>
   );
