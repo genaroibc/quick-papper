@@ -67,7 +67,11 @@ export function BlogForm() {
           max={5}
         />
 
-        <button className={styles.blogForm__submitBtn} type="submit">
+        <button
+          disabled={loading}
+          className={styles.blogForm__submitBtn}
+          type="submit"
+        >
           Generate draft
         </button>
       </form>
