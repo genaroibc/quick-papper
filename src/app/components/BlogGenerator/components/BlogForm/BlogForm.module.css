@@ -9,13 +9,25 @@
   gap: 1rem;
 
   padding: 1rem;
+
+  margin: 2rem auto;
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+
+  background: linear-gradient(
+    45deg,
+    var(--terciary-color),
+    var(--complement-color)
+  );
 }
 
-.blogForm__input {
-  width: 100%;
+.blogForm__title {
+  font-weight: 500;
+  font-size: 2;
 }
 
 .blogForm__label {
+  color: #eee;
   margin: 2rem auto 1rem;
 }
 

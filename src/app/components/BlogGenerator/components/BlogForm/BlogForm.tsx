@@ -36,6 +36,8 @@ export function BlogForm() {
 
   return (
     <>
+      <h3 className={styles.blogForm__title}>Set up your blog</h3>
+
       <form onSubmit={handleSubmit} className={styles.blogForm}>
         <label className={styles.blogForm__label} htmlFor="blog-title">
           Blog title
@@ -81,7 +83,8 @@ export function BlogForm() {
           <Loader />
           <p>Wait while we generate your blog draft...</p>
         </>
-      ) : blogData ? (
+      ) : (
+        blogData &&
         blogData.generations.map(generation => (
           <Generation
             key={generation.text.slice(0, 10)}
@@ -89,8 +92,6 @@ export function BlogForm() {
             prompt={blogData.prompt}
           />
         ))
-      ) : (
-        <p>Enter your blog params</p>
       )}
     </>
   );
