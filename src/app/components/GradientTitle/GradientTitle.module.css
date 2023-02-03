@@ -1,5 +1,6 @@
 .gradientTitle {
   background: -webkit-linear-gradient(
+    180deg,
     var(--first-color, #f00),
     var(--second-color, #00f)
   );
@@ -9,5 +10,5 @@
 }
 
 .gradientTitle::selection {
-  -webkit-text-fill-color: var(--complement-color);
+  -webkit-text-fill-color: #fff;
 }
