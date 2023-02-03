@@ -1,8 +1,8 @@
 :root {
   --primary-color: #111;
   --secondary-color: #005547;
-  --terciary-color: #00896d;
-  --complement-color: #dff6ff;
+  --terciary-color: #00d773;
+  --complement-color: #1b79ba;
   --text-white: #eee;
 
   font-size: 16px;
@@ -14,8 +14,8 @@
 }
 
 :where(*, ::after, ::before)::selection {
-  background-color: var(--terciary-color);
-  color: var(--complement-color);
+  background-color: var(--complement-color);
+  color: #fff;
 }
 
 *,
