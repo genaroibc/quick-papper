@@ -1,4 +1,26 @@
 import Script from "next/script";
+
+// 🙈 🙈
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "model-viewer": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & {
+          src: string;
+          alt: string;
+          "auto-rotate": boolean;
+          "camera-controls": boolean;
+          ar: boolean;
+          "ios-src": string;
+          poster: string;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
+// 🙈 🙈
+
 export function Model3d() {
   return (
     <>
