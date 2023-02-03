@@ -9,12 +9,13 @@ export function Model3d() {
       <Script src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></Script>
 
       <model-viewer
-        src="/Telescope.gltf"
-        alt="VR Headset"
+        src="/3d/HeroRobot.gltf"
+        alt="A standing metal robot"
         auto-rotate
         camera-controls
         ar
-        ios-src="/Telescope.gltf"
+        ios-src="/3d/HeroRobot.gltf"
+        poster="/3d/HeroRobotPoster.webp"
       ></model-viewer>
     </>
   );
