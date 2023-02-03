@@ -31,9 +31,7 @@ export function Hero() {
         </p>
       </div>
 
-      <div className={styles.hero__image}>
-        <Model3d />
-      </div>
+      <Model3d />
     </section>
   );
 }
