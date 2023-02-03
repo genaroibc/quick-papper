@@ -11,14 +11,14 @@
   padding: 1rem;
 
   margin: 2rem auto;
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   border-radius: 5px;
 
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     var(--terciary-color),
     var(--complement-color)
-  );
+  ); */
 }
 
 .blogForm__title {
