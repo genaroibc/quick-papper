@@ -25,36 +25,39 @@ export function CopyNavBar({ text, title }: Props) {
   return (
     <nav className={styles.copyNavBar}>
       <button
+        aria-label="copy as HTML"
+        title="copy as HTML"
         onClick={() => handleCopyGeneration("HTML")}
-        className={styles.generations__item__copyTextBtn}
+        className={styles.copyNavBar__copyHtmlBtn}
       >
-        Copy as HTML
         <Image
-          src="/svg/plus.svg"
+          src="/svg/copy.svg"
           alt="add new paragraphs"
           width={40}
           height={40}
         />
       </button>
       <button
+        aria-label="copy as Markdown"
+        title="copy as Markdown"
         onClick={() => handleCopyGeneration("MARKDOWN")}
-        className={styles.generations__item__copyTextBtn}
+        className={styles.copyNavBar__copyMarkdownBtn}
       >
-        Copy as MarkDown
         <Image
-          src="/svg/plus.svg"
+          src="/svg/copy.svg"
           alt="add new paragraphs"
           width={40}
           height={40}
         />
       </button>
       <button
+        aria-label="copy as plain text"
+        title="copy as plain text"
         onClick={() => handleCopyGeneration("PLAIN_TEXT")}
-        className={styles.generations__item__copyTextBtn}
+        className={styles.copyNavBar__copyPlaintextBtn}
       >
-        Copy as Plain text
         <Image
-          src="/svg/plus.svg"
+          src="/svg/copy.svg"
           alt="add new paragraphs"
           width={40}
           height={40}

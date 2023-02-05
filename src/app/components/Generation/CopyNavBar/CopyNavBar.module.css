@@ -1,7 +1,94 @@
 .copyNavBar {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+
+.copyNavBar button {
+  position: relative;
+
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  transition: background 0.3s ease;
+
+  background-color: var(--primary-color);
+  background-size: 0%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  padding: 1rem;
+}
+
+.copyNavBar button:hover {
+  background-size: 80%;
+}
+
+.copyNavBar button::before,
+.copyNavBar button::after {
+  position: absolute;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+
+  background-color: #000;
+  opacity: 0;
+
+  transition: opacity 0.3s ease-out;
+}
+
+.copyNavBar button::before {
+  content: "";
+  width: 2rem;
+  height: 2rem;
+
+  position: absolute;
+  bottom: 105%;
+
+  opacity: 0;
+  clip-path: polygon(0% 50%, 100% 50%, 50% 100%);
+}
+
+.copyNavBar button::after {
+  content: attr(aria-label);
+
+  bottom: 115%;
+
+  padding: 0.5em 1em;
+
+  font-size: 0.9rem;
+  text-indent: 0;
+  white-space: nowrap;
+
+  border-radius: 5px;
+}
+
+.copyNavBar button:not(:disabled):hover::after,
+.copyNavBar button:not(:disabled):hover::before {
+  opacity: 1;
+}
+
+.copyNavBar button img {
+  transition: opacity 0.3s ease;
+}
+
+.copyNavBar button:hover img {
+  opacity: 0;
+}
+
+.copyNavBar__copyHtmlBtn {
+  background: linear-gradient(transparent, transparent), url(/html.svg);
+}
+
+.copyNavBar__copyMarkdownBtn {
+  background: linear-gradient(transparent, transparent), url(/markdown.svg);
+}
+
+.copyNavBar__copyPlaintextBtn {
+  background: linear-gradient(transparent, transparent), url(/plaintext.svg);
 }
