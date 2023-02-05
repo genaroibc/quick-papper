@@ -136,7 +136,7 @@ label {
 }
 
 input {
-  background-color: #0006;
+  background-color: #111;
   width: 100%;
 
   transition: border-bottom 0.2s ease, background-color 0.2s ease;
