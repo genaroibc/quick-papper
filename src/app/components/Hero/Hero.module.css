@@ -8,6 +8,7 @@
 }
 
 .hero__image {
+  width: 100%;
   transform: translateX(10%);
   opacity: 0;
   animation: enterInView 1s ease 0.4s 1 forwards;

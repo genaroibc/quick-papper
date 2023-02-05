@@ -6,20 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest"
   },
   "dependencies": {
+    "@google/model-viewer": "1.3.0",
     "@next/font": "13.1.5",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
-    "cohere-ai": "^5.0.2",
-    "eslint": "^8.33.0",
+    "cohere-ai": "5.0.2",
+    "eslint": "8.33.0",
     "eslint-config-next": "13.1.5",
-    "nanoid": "^4.0.0",
+    "nanoid": "4.0.0",
     "next": "13.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.4"
+  },
+  "devDependencies": {
+    "@testing-library/react": "13.4.0",
+    "@vitejs/plugin-react": "3.1.0",
+    "jsdom": "21.1.0",
+    "vitest": "0.28.3"
   }
 }

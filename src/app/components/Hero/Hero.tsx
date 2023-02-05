@@ -1,5 +1,5 @@
 import { GradientTitle } from "../GradientTitle/GradientTitle";
-import { Model3d } from "../Model3d/Model3d";
+import { Model } from "../Model/Model";
 import styles from "./Hero.module.css";
 
 export function Hero() {
@@ -32,7 +32,7 @@ export function Hero() {
       </div>
 
       <div className={styles.hero__image}>
-        <Model3d />
+        <Model />
       </div>
     </section>
   );
