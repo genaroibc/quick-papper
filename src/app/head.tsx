@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>Quick Draft</title>
+      <title>Quick Papper</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta
         name="description"
