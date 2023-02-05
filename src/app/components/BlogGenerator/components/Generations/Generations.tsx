@@ -8,6 +8,7 @@ import { useState } from "react";
 import styles from "./Generations.module.css";
 import { GenerationLoader } from "./GenerationSlice/GenerationLoader/GenerationLoader";
 import { GenerationSlice } from "./GenerationSlice/GenerationSlice";
+import { CopyNavBar } from "./CopyNavBar/CopyNavBar";
 
 type Props = {
   initialSlices: string[];
@@ -107,6 +108,11 @@ export function Generation({ initialSlices, prompt }: Props) {
           />
         </button>
       </article>
+
+      <CopyNavBar
+        title={prompt?.replace(GENERATION_PROMPT_PREFIX, "") ?? ""}
+        text={slices.map(slice => slice.content).join("\n\n")}
+      />
     </div>
   );
 }
