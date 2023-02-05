@@ -2,7 +2,7 @@ import { APIClient } from "@/services/APIClient";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
-import { GenerationLoader } from "./GenerationLoader/GenerationLoader";
+import { GenerationLoader } from "./GenerationSliceLoader/GenerationSliceLoader";
 import styles from "./GenerationSlice.module.css";
 import { GenerationSliceToolbar } from "./GenerationSliceToolbar/GenerationSliceToolbar";
 
@@ -156,8 +156,6 @@ export function GenerationSlice({
       $slice.contentEditable = "false";
     }
   };
-
-  console.count("render generation slice...");
 
   return (
     <div onInput={handleTextChange} className={styles.generationSlice}>

@@ -1,7 +1,7 @@
 "use client";
 import { APIClient } from "@/services/APIClient";
 import { useState } from "react";
-import { Generation } from "../Generations/Generations";
+import { Generation } from "../Generation/Generation";
 import { APIResponse } from "@/types";
 import { isAPIResponse } from "@/utils/isAPIResponse";
 import styles from "./BlogForm.module.css";

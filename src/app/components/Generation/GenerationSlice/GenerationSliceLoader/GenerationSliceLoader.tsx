@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Loader } from "@/app/components/Loader/Loader";
-import styles from "./GenerationLoader.module.css";
+import styles from "./GenerationSliceLoader.module.css";
 
 const MESSAGE_CHANGE_INTERVAL = 3800;
 const LOADING_MESSAGES = [

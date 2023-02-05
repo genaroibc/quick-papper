@@ -1,6 +1,6 @@
 import styles from "./GenerationSliceToolbar.module.css";
 import Image from "next/image";
-import { TextContentState } from "../GenerationSlice";
+import { TextContentState } from "@/app/components/Generation/GenerationSlice/GenerationSlice";
 
 type Props = {
   loading: boolean;

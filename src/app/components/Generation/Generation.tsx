@@ -5,8 +5,8 @@ import { isAPIResponse } from "@/utils/isAPIResponse";
 import { nanoid } from "nanoid";
 import Image from "next/image";
 import { useState } from "react";
-import styles from "./Generations.module.css";
-import { GenerationLoader } from "./GenerationSlice/GenerationLoader/GenerationLoader";
+import styles from "./Generation.module.css";
+import { GenerationLoader } from "./GenerationSlice/GenerationSliceLoader/GenerationSliceLoader";
 import { GenerationSlice } from "./GenerationSlice/GenerationSlice";
 import { CopyNavBar } from "./CopyNavBar/CopyNavBar";
 
