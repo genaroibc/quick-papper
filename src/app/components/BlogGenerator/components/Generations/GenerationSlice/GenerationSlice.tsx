@@ -9,6 +9,8 @@ import { GenerationSliceToolbar } from "./GenerationSliceToolbar/GenerationSlice
 type Props = {
   initialContent: string;
   handleDeleteSlice: () => void;
+  sliceId: string;
+  handleUpdateSlice: (Params: { sliceId: string; content: string }) => void;
 };
 
 export type TextContentState = {
@@ -16,7 +18,12 @@ export type TextContentState = {
   newText: string | null;
 };
 
-export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
+export function GenerationSlice({
+  initialContent,
+  handleDeleteSlice,
+  handleUpdateSlice,
+  sliceId
+}: Props) {
   const [sliceContent, setSliceContent] = useState<TextContentState>({
     currentText: initialContent,
     newText: null
@@ -111,11 +118,17 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   const handleAcceptNewText = () => {
     setSliceContent(currentState => {
       if (textToEdit) {
-        return { newText: null, currentText: textToEdit };
+        const updatedText = textToEdit;
+        handleUpdateSlice({ content: updatedText, sliceId });
+
+        return { newText: null, currentText: updatedText };
       }
 
       if (currentState.newText) {
-        return { currentText: currentState.newText, newText: null };
+        const updatedText = currentState.newText;
+        handleUpdateSlice({ content: updatedText, sliceId });
+
+        return { currentText: updatedText, newText: null };
       }
 
       return currentState;
@@ -143,6 +156,8 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
       $slice.contentEditable = "false";
     }
   };
+
+  console.count("render generation slice...");
 
   return (
     <div onInput={handleTextChange} className={styles.generationSlice}>

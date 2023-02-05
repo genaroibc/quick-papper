@@ -27,7 +27,18 @@
   text-align: center;
 }
 
-.generations__item__extendBtn {
+.generations__item__extendTextBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  flex-wrap: wrap;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.generations__item__copyTextBtn {
   display: flex;
   justify-content: center;
   align-items: center;

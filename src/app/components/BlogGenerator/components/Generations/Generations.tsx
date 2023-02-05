@@ -55,6 +55,22 @@ export function Generation({ initialSlices, prompt }: Props) {
     }
     setLoading(false);
   };
+
+  const handleUpdateSlice = ({
+    content,
+    sliceId
+  }: {
+    sliceId: string;
+    content: string;
+  }) => {
+    setSlices(currentSlices => {
+      const updatedSlices = currentSlices.map(slice =>
+        slice.id === sliceId ? { content, id: sliceId } : slice
+      );
+      return updatedSlices;
+    });
+  };
+
   return (
     <div className={styles.generations}>
       <article className={styles.generations__item}>
@@ -68,8 +84,10 @@ export function Generation({ initialSlices, prompt }: Props) {
 
         {slices.map(({ id, content }) => (
           <GenerationSlice
+            handleUpdateSlice={handleUpdateSlice}
             handleDeleteSlice={() => handleDeleteSlice(id)}
             key={id}
+            sliceId={id}
             initialContent={content.trim()}
           />
         ))}
@@ -78,7 +96,7 @@ export function Generation({ initialSlices, prompt }: Props) {
 
         <button
           onClick={handleExtendGeneration}
-          className={styles.generations__item__extendBtn}
+          className={styles.generations__item__extendTextBtn}
         >
           Extend
           <Image
