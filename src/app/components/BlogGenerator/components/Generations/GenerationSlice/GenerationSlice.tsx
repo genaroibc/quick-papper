@@ -131,15 +131,17 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
   };
 
   const handleDiscardNewText = () => {
-    const $slice = sliceRef.current;
-
-    if ($slice?.textContent) {
-      $slice.textContent = "";
-    }
-
     setSliceContent(currentState => {
       return { ...currentState, newText: null };
     });
+
+    const $slice = sliceRef.current;
+
+    setTextToEdit("");
+    if ($slice) {
+      $slice.textContent = "";
+      $slice.contentEditable = "false";
+    }
   };
 
   return (
@@ -157,7 +159,7 @@ export function GenerationSlice({ initialContent, handleDeleteSlice }: Props) {
             {sliceContent.currentText.trim()}
           </p>
           <div className={styles.generationSlice__newPgphCont}>
-            <p ref={sliceRef}>{sliceContent.newText}</p>
+            <p ref={sliceRef}>{sliceContent.newText?.trim()}</p>
 
             {sliceContent.newText && (
               <nav className={styles.generationSlice__newPgphCont__navbar}>
