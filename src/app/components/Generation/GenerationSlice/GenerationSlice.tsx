@@ -198,10 +198,10 @@ export function GenerationSlice({
                 >
                   Discard changes
                   <Image
-                    src="/svg/trash.svg"
+                    src="/svg/delete.svg"
                     alt="discard changes"
-                    width={30}
-                    height={30}
+                    width={40}
+                    height={40}
                   />
                 </button>
               </nav>
