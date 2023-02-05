@@ -1,4 +1,5 @@
 .generationSlice {
+  --opaque-text-color: #777;
   position: relative;
 
   padding: 1rem;
@@ -9,6 +10,8 @@
   transition: color 0.3s ease-out;
 
   border-radius: 5px;
+
+  background-color: var(--main-color);
 }
 
 .generationSlice__loadingPgph {
@@ -35,7 +38,7 @@
 }
 
 .generationSlice__newPgphCont__navbar {
-  margin: 2rem auto 1rem;
+  margin: 1rem auto;
   display: flex;
   align-content: center;
   gap: 1rem;
@@ -53,14 +56,14 @@
     .generationSlice__newPgphCont__navbar__discardChangesBtn:hover
   )
   .generationSlice__newPgphCont {
-  color: #222;
+  color: var(--opaque-text-color);
 }
 
 .generationSlice:has(
     .generationSlice__newPgphCont__navbar__acceptChangesBtn:hover
   )
   .generationSlice__pgph {
-  color: #222;
+  color: var(--opaque-text-color);
 }
 
 .generationSlice:has(
