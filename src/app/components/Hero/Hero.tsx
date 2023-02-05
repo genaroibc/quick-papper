@@ -1,6 +1,13 @@
 import { GradientTitle } from "../GradientTitle/GradientTitle";
-import { Model } from "../Model/Model";
+import dynamic from "next/dynamic";
 import styles from "./Hero.module.css";
+
+const Model = dynamic(
+  import("../Model/Model").then(module => module.Model),
+  {
+    ssr: false
+  }
+);
 
 export function Hero() {
   return (
