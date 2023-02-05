@@ -5,11 +5,11 @@ import styles from "./Hero.module.css";
 export function Hero() {
   return (
     <section className={styles.hero}>
-      <div>
-        <h1 className={styles.hero__title}>
+      <div className={styles.hero__main}>
+        <h1 className={styles.hero__main__title}>
           Quick <span>Papper</span>
         </h1>
-        <h2 className={styles.hero__subtitle}>
+        <h2 className={styles.hero__main__subtitle}>
           Create{" "}
           <GradientTitle
             colors={["var(--terciary-color)", "var(--complement-color)"]}
@@ -31,7 +31,9 @@ export function Hero() {
         </p>
       </div>
 
-      <Model3d />
+      <div className={styles.hero__image}>
+        <Model3d />
+      </div>
     </section>
   );
 }
