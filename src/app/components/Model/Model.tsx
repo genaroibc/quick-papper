@@ -31,6 +31,7 @@ export function Model() {
       ar
       ios-src="/3d/HeroRobot.gltf"
       poster="/3d/HeroRobotPoster.webp"
-    ></model-viewer>
+      camera-orbit="240deg 65deg "
+    />
   );
 }

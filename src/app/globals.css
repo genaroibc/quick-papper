@@ -166,6 +166,7 @@ input:-webkit-autofill:focus {
 }
 
 model-viewer {
+  --poster-color: transparent;
   width: 100%;
   height: 500px;
 }
