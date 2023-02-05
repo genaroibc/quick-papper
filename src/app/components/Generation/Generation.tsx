@@ -107,12 +107,11 @@ export function Generation({ initialSlices, prompt }: Props) {
             height={40}
           />
         </button>
+        <CopyNavBar
+          title={prompt?.replace(GENERATION_PROMPT_PREFIX, "") ?? ""}
+          text={slices.map(slice => slice.content).join("\n\n")}
+        />
       </article>
-
-      <CopyNavBar
-        title={prompt?.replace(GENERATION_PROMPT_PREFIX, "") ?? ""}
-        text={slices.map(slice => slice.content).join("\n\n")}
-      />
     </div>
   );
 }
