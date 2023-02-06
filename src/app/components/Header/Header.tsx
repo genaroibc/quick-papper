@@ -11,9 +11,6 @@ export function Header() {
         <Link className={styles.header__nav__link} href="/">
           Home
         </Link>
-        <Link className={styles.header__nav__link} href="/">
-          Showcase
-        </Link>
         <Link
           className={styles.header__nav__link}
           href="https://github.com/genaroibc"
