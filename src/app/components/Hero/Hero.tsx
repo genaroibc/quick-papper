@@ -1,3 +1,5 @@
+"use client";
+
 import { GradientTitle } from "../GradientTitle/GradientTitle";
 import dynamic from "next/dynamic";
 import styles from "./Hero.module.css";
