@@ -82,13 +82,13 @@
 }
 
 .copyNavBar__copyHtmlBtn {
-  background: linear-gradient(transparent, transparent), url(/html.svg);
+  background: linear-gradient(transparent, transparent), url(/svg/html.svg);
 }
 
 .copyNavBar__copyMarkdownBtn {
-  background: linear-gradient(transparent, transparent), url(/markdown.svg);
+  background: linear-gradient(transparent, transparent), url(/svg/markdown.svg);
 }
 
 .copyNavBar__copyPlaintextBtn {
-  background: linear-gradient(transparent, transparent), url(/plaintext.svg);
+  background: linear-gradient(transparent, transparent), url(/svg/plaintext.svg);
 }
