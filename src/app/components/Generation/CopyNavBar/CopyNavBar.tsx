@@ -1,10 +1,9 @@
-import { formatTextToHTML } from "@/utils/formatToHTML/formatToHTML";
-import { formatTextToMarkDown } from "@/utils/formatToMarkDown/formatToMarkDown";
+import { formatToHTML } from "@/utils/formatToHTML/formatToHTML";
 import Image from "next/image";
 import styles from "./CopyNavBar.module.css";
 
 type CopyFormat = "HTML" | "MARKDOWN" | "PLAIN_TEXT";
-type FormatterFn = (text: string) => string;
+type FormatterFn = (title: string, text: string) => string;
 
 type Props = {
   text: string;
@@ -14,12 +13,12 @@ type Props = {
 export function CopyNavBar({ text, title }: Props) {
   const handleCopyGeneration = (format: CopyFormat) => {
     const FORMAT_DICT: Record<CopyFormat, FormatterFn> = {
-      HTML: text => formatTextToHTML(text, title),
-      MARKDOWN: text => formatTextToMarkDown(text, title),
-      PLAIN_TEXT: text => `${title}\n\n${text}`
+      HTML: (title, text) => formatToHTML(title, text),
+      MARKDOWN: (title, text) => `# ${title}\n\n${text}`,
+      PLAIN_TEXT: (title, text) => `${title}\n\n${text}`
     };
 
-    navigator.clipboard.writeText(FORMAT_DICT[format](text));
+    navigator.clipboard.writeText(FORMAT_DICT[format](title, text));
   };
 
   return (

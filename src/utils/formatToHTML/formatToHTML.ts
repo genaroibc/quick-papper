@@ -1,4 +1,4 @@
-export function formatTextToHTML(text: string, title: string) {
+export function formatToHTML(title: string, text: string) {
   const paragraphs = text
     .split("\n\n")
     .map(pgph => `<p>${pgph.trim()}</p>`)
