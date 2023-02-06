@@ -1,8 +1,15 @@
-export function formatToHTML(title: string, text: string) {
-  const paragraphs = text
-    .split("\n\n")
-    .map(pgph => `<p>${pgph.trim()}</p>`)
-    .join("\n");
+type Params = { title: string; text: string };
 
-  return `<h1>${title}</h1>\n${paragraphs}`;
+export function formatToHTML({ text, title }: Params) {
+  const formatedTitle = title && `<h1>${title}</h1>\n`;
+
+  const formatedParagraphs =
+    text &&
+    text
+      .split("\n\n")
+      .filter(part => part !== "")
+      .map(pgph => `<p>${pgph.trim()}</p>`)
+      .join("\n");
+
+  return `${formatedTitle}${formatedParagraphs}`;
 }

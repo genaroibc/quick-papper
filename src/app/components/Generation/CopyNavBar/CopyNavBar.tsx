@@ -13,7 +13,7 @@ type Props = {
 export function CopyNavBar({ text, title }: Props) {
   const handleCopyGeneration = (format: CopyFormat) => {
     const FORMAT_DICT: Record<CopyFormat, FormatterFn> = {
-      HTML: (title, text) => formatToHTML(title, text),
+      HTML: (title, text) => formatToHTML({ title, text }),
       MARKDOWN: (title, text) => `# ${title}\n\n${text}`,
       PLAIN_TEXT: (title, text) => `${title}\n\n${text}`
     };
