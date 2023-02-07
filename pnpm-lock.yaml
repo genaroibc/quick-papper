@@ -15,10 +15,11 @@ specifiers:
   nanoid: 4.0.0
   next: 13.1.5
   react: 18.2.0
-  react-canvas-confetti: ^1.3.0
+  react-canvas-confetti: 1.3.0
   react-dom: 18.2.0
   typescript: 4.9.4
   vitest: 0.28.3
+  wc-toast: ^1.2.9
 
 dependencies:
   '@google/model-viewer': 1.3.0
@@ -35,6 +36,7 @@ dependencies:
   react-canvas-confetti: 1.3.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   typescript: 4.9.4
+  wc-toast: 1.2.9
 
 devDependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
@@ -3457,6 +3459,10 @@ packages:
     dependencies:
       xml-name-validator: 4.0.0
     dev: true
+
+  /wc-toast/1.2.9:
+    resolution: {integrity: sha512-cwYwKCLqezlNrMkXFEQg/4VzBuPBMn8nEDWvAOcw5AfutkoWCCa28li9tpcM9s/ITRL18lVsdeR6HzUQAqFVKA==}
+    dev: false
 
   /webidl-conversions/7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
