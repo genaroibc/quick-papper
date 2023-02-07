@@ -7,6 +7,12 @@ import styles from "./CopyNavBar.module.css";
 type CopyFormat = "HTML" | "MARKDOWN" | "PLAIN_TEXT";
 type FormatterFn = (title: string, text: string) => string;
 
+const FORMAT_DICT: Record<CopyFormat, FormatterFn> = {
+  HTML: (title, text) => formatToHTML({ title, text }),
+  MARKDOWN: (title, text) => `# ${title}\n\n${text}`,
+  PLAIN_TEXT: (title, text) => `${title}\n\n${text}`
+};
+
 type Props = {
   text: string;
   title: string;
@@ -14,14 +20,24 @@ type Props = {
 
 export function CopyNavBar({ text, title }: Props) {
   const handleCopyGeneration = (format: CopyFormat) => {
-    const FORMAT_DICT: Record<CopyFormat, FormatterFn> = {
-      HTML: (title, text) => formatToHTML({ title, text }),
-      MARKDOWN: (title, text) => `# ${title}\n\n${text}`,
-      PLAIN_TEXT: (title, text) => `${title}\n\n${text}`
-    };
-
     navigator.clipboard.writeText(FORMAT_DICT[format](title, text));
     fireConfetti();
+
+    const toastMessage = `Copied as ${format
+      .toLowerCase()
+      .replaceAll("_", " ")} 🥳!`;
+
+    import("wc-toast").then(module =>
+      module.toast(toastMessage, {
+        icon: {
+          type: "success"
+        },
+        duration: 2000,
+        theme: {
+          type: "dark"
+        }
+      })
+    );
   };
 
   const refAnimationInstance = useRef(null);
@@ -74,6 +90,7 @@ export function CopyNavBar({ text, title }: Props) {
 
   return (
     <nav className={styles.copyNavBar}>
+      <wc-toast />
       <button
         aria-label="copy as HTML"
         title="copy as HTML"
