@@ -1,10 +1,3 @@
-@font-face {
-  font-family: "Epilogue";
-  src: url("/fonts/Epilogue-VariableFont_wght.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 :root {
   --main-color: #111;
   --primary-color: #005547;
