@@ -1,15 +1,6 @@
-"use client";
-
 import { GradientTitle } from "../GradientTitle/GradientTitle";
-import dynamic from "next/dynamic";
+import { Model } from "../Model/Model";
 import styles from "./Hero.module.css";
-
-const Model = dynamic(
-  import("../Model/Model").then(module => module.Model),
-  {
-    ssr: false
-  }
-);
 
 export function Hero() {
   return (
